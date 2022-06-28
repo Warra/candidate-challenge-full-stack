@@ -18,17 +18,8 @@ class FakerServiceProvider extends ServiceProvider
         $this->app->singleton(Generator::class, function () {
             $faker = Factory::create();
             $faker->addProvider(new \Faker\Provider\Fakecar($faker));
+            $faker->addProvider(new \Faker\Provider\en_ZA\PhoneNumber($faker));
             return $faker;
         });
-    }
-
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
     }
 }
