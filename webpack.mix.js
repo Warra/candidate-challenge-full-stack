@@ -9,9 +9,7 @@ mix.js("resources/js/app.js", "public/js")
     .options({
         postCss: [require("tailwindcss")],
     })
-    .purgeCss({
-        enabled: true,
-    });
+    .purgeCss();
 
 mix.alias({
     "@": path.join(__dirname, "resources/js"),
