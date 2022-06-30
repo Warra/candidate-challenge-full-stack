@@ -19,10 +19,13 @@ class ListingFactory extends Factory
      */
     public function definition()
     {
+        $uuid = Str::uuid();
+
         return [
+            'uuid' => $uuid,
             'title' => $this->faker->vehicle,
             'description' => $this->faker->paragraph,
-            'slug' => '/listings/cars/'.Str::uuid(),
+            'slug' => '/listings/cars/'.$uuid,
             'online_at' => Carbon::now()->toDateTimeString(),
             'offline_at' => Carbon::now()->toDateTimeString(),
             'amount' => $this->faker->randomNumber(4, 8),

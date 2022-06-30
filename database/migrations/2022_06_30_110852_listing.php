@@ -14,6 +14,7 @@ return new class extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
 
             $table->id();
+            $table->string('uuid');
             $table->string('title');
             $table->string('slug');
             $table->text('description');
