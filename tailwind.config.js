@@ -10,6 +10,10 @@ module.exports = {
                 mainblue: "#17408B",
                 maingold: "#FDBA22",
             },
+            screens: {
+                // xs: { max: "400px" },
+                xs: "400px",
+            },
         },
     },
     variants: {
