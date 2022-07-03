@@ -15,9 +15,9 @@ class ListingSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Listing::factory(30)->create();
+        \App\Models\Listing::factory(50)->create();
 
-        \App\Models\Listing::factory(10)->create([
+        \App\Models\Listing::factory(30)->create([
             'online_at' => null,
         ]);
     }
