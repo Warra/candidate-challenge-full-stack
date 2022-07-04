@@ -11,6 +11,7 @@ class Listing extends Model
     use HasFactory;
 
     protected $fillable = [
+        "uuid",
         "title",
         "slug",
         "description",
@@ -22,6 +23,11 @@ class Listing extends Model
         "email",
         "category_id"
      ];
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 
     public function category()
     {
