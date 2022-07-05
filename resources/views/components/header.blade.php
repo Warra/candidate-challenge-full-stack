@@ -1,6 +1,6 @@
 <div class="absolute top-0 left-0 w-screen py-4 bg-mainblue z-10">
     <div class="relative flex">
-        <span class="text-2xl text-maingold ml-16">ListR</span>
+        <a href="/"><span class="text-2xl text-maingold ml-16">ListR</span></a>
     </div>
     <div class="absolute top-0 right-0 mt-5 mr-16">
         @if (Route::has('login'))
