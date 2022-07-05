@@ -12,6 +12,13 @@ class ContactSection extends Component
     public $message;
     public $listingId;
     public $saved;
+    public $messageCount;
+
+    protected $rules = [
+        'email' => 'required|email',
+        'mobile' => 'required|numeric|digits:10',
+        'message' => 'required|max:300',
+    ];
 
     public function mount()
     {
@@ -19,16 +26,24 @@ class ContactSection extends Component
         $this->mobile = '';
         $this->message = '';
         $this->saved = false;
+        $this->messageCount = 300;
+    }
+
+    public function updatedMessage()
+    {
+        $this->messageCount = 300 - strlen($this->message);
     }
 
     public function saveContact($listingId)
     {
-        // $contact = new Contact();
-        // $contact['listing_id'] = (int) $listingId;
-        // $contact['email'] = $this->email;
-        // $contact['mobile'] = $this->mobile;
-        // $contact['message'] = $this->message;
-        // $contact->save();
+        $this->validate();
+
+        $contact = new Contact();
+        $contact['listing_id'] = (int) $listingId;
+        $contact['email'] = $this->email;
+        $contact['mobile'] = $this->mobile;
+        $contact['message'] = $this->message;
+        $contact->save();
 
         $this->saved = true;
     }
@@ -44,6 +59,7 @@ class ContactSection extends Component
         $this->mobile = '';
         $this->message = '';
         $this->saved = false;
+        $this->messageCount = 300;
     }
 
     public function render()
