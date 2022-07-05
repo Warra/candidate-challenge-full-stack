@@ -23,12 +23,12 @@ class ContactSection extends Component
 
     public function saveContact($listingId)
     {
-        $contact = new Contact();
-        $contact['listing_id'] = (int) $listingId;
-        $contact['email'] = $this->email;
-        $contact['mobile'] = $this->mobile;
-        $contact['message'] = $this->message;
-        $contact->save();
+        // $contact = new Contact();
+        // $contact['listing_id'] = (int) $listingId;
+        // $contact['email'] = $this->email;
+        // $contact['mobile'] = $this->mobile;
+        // $contact['message'] = $this->message;
+        // $contact->save();
 
         $this->saved = true;
     }

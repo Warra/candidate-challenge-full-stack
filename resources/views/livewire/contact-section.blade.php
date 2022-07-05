@@ -15,8 +15,8 @@
         <button class="inline-flex items-center mt-4 px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-maingold bg-mainblue" wire:click="saveContact({{$listingId}})">Contact Seller</button>
     </div>
     @if($saved)
-        <div class="absolute flex flex-col justify-center items-center top-24 bottom-24 left-24 right-24 rounded-md bg-mainblue text-maingold">
-            <div class="flex text-2xl w-1/2 text-center">
+        <div class="fixed top-8 right-0 bottom-0 left-0 w-screen h-screen flex flex-col justify-center items-center bg-mainblue text-maingold">
+            <div class="flex text-base sm:text-2xl w-1/2 text-center">
                 Your details have been saved. The seller will be in contact with you shortly.
             </div>
             <div class="mt-8">
