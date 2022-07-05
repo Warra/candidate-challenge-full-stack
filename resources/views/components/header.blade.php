@@ -7,13 +7,18 @@
             <div class="space-x-4">
                 @auth
                     <a
+                        href="{{ route('create-listing') }}"
+                        class="font-medium text-maingold hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+                    >
+                        Create Listing
+                    </a>
+                    <a
                         href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                         class="font-medium text-maingold hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
                     >
                         Log out
                     </a>
-
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
