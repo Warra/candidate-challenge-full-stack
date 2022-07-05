@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('password/confirm', Confirm::class)
         ->name('password.confirm');
+
+    Route::view('listings/create', 'create-listing')->name('create-listing');
 });
 
 Route::middleware('auth')->group(function () {
