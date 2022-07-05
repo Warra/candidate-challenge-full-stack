@@ -14,19 +14,21 @@
             </div>
             <div class="flex flex-col mt-8 md:mt-0 w-full md:w-1/3 h-fit">
                 @livewire("contact-section", ["listingId" => $listing["id"]])
-                <div class="border-solid border-2 border-gray-300 mt-8">
-                    <div class="bg-mainblue text-maingold text-center p-2">
-                        Contact Details
-                    </div>
-                    <div class="p-4 text-sm">
-                        <div>
-                            Email: {{$listing["email"]}}
+                @auth
+                    <div class="border-solid border-2 border-gray-300 mt-8">
+                        <div class="bg-mainblue text-maingold text-center p-2">
+                            Contact Details
                         </div>
-                        <div>
-                            Mobile: {{$listing["mobile"] ? $listing["mobile"] : "No mobile number available"}}
+                        <div class="p-4 text-sm">
+                            <div>
+                                Email: {{$listing["email"]}}
+                            </div>
+                            <div>
+                                Mobile: {{$listing["mobile"] ? $listing["mobile"] : "No mobile number available"}}
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endauth
             </div>
         </div>
     </div>
