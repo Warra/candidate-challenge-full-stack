@@ -41,6 +41,7 @@ class ListingResults extends Component
 
     public function search()
     {
+        sleep(1); //Added this to show loading state
         if($this->query === "" && $this->category === 0)
         {
             $this->listings = Listing::where('online_at', '<', $this->date)->whereNull('offline_at')->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
