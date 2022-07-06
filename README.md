@@ -15,9 +15,11 @@ This is my project for the full stack candidate challenge.
 - composer install
 - `yarn` or `npm install`
 - setup env vars (see .env.example)
-- php artisan migrate
-- php artisan db:seed
-- php artisan serve
+- `cp .env.example .env` - this creates your .env file with example vars
+- `php artisan key:generate`
+- `php artisan migrate`
+- `php artisan db:seed` (This can create duplicate listings)
+- `php artisan serve`
 - `yarn dev` or `npm run dev`
 
 ### Features
@@ -25,6 +27,10 @@ This is my project for the full stack candidate challenge.
 - Details page - contact listing owner (requires authed user)
 - Create listings (requires authed user)
 - Auth - register, login etc.
+
+### Testing
+- `php artisan test`
+- The following tests are included - Route tests, Create contact tests, Create listing tests
 
 ### Technical features
 - Uses TALL stack
