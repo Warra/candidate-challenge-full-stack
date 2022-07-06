@@ -17,7 +17,6 @@ class CreateListingSection extends Component
     public $categorySelected;
     public $amount;
     public $onlineAt;
-    public $offlineAt;
     public $mobile;
     public $email;
     public $isCreated;
@@ -27,8 +26,7 @@ class CreateListingSection extends Component
         'description' => 'required|max:800',
         'categorySelected' => 'required|numeric|min:1',
         'amount' => 'required|numeric',
-        'onlineAt' => 'date',
-        'offlineAt' => 'nullable|date',
+        'onlineAt' => 'nullable|date',
         'email' => 'required|email',
         'mobile' => 'required|numeric|digits:10',
     ];
@@ -39,7 +37,6 @@ class CreateListingSection extends Component
         $this->description = '';
         $this->amount = '';
         $this->onlineAt = Carbon::now()->isoFormat('YYYY-MM-DD');
-        $this->offlineAt = null;
         $this->email = '';
         $this->mobile = '';
         $this->categories = Category::all()->toArray();
@@ -77,7 +74,6 @@ class CreateListingSection extends Component
         $listing['description'] = $this->description;
         $listing['slug'] = '\/listings\/'.$selectedCategory['name'].'\/'.$uuid;
         $listing['online_at'] = $this->onlineAt;
-        $listing['offline_at'] = $this->offlineAt;
         $listing['amount'] = $this->amount;
         $listing['currency'] = 'ZAR'; //just hardcoded this for now
         $listing['email'] = $this->email;

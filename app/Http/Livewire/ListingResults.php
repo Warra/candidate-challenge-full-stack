@@ -22,7 +22,7 @@ class ListingResults extends Component
         $this->date = Carbon::now();
         $this->query = '';
         $this->category = 0;
-        $this->listings = Listing::where('online_at', '<', $this->date)->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
+        $this->listings = Listing::where('online_at', '<', $this->date)->whereNull('offline_at')->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
         $this->selectedCategory = [];
     }
 
@@ -43,16 +43,16 @@ class ListingResults extends Component
     {
         if($this->query === "" && $this->category === 0)
         {
-            $this->listings = Listing::where('online_at', '<', $this->date)->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
+            $this->listings = Listing::where('online_at', '<', $this->date)->whereNull('offline_at')->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
         } else if($this->query === "" && $this->category > 0)
         {
-            $this->listings = Listing::where('category_id', $this->category)->where('online_at', '<', $this->date)->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
+            $this->listings = Listing::where('category_id', $this->category)->whereNull('offline_at')->where('online_at', '<', $this->date)->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
         } else if($this->query && $this->category === 0)
         {
-            $this->listings = Listing::where('title', 'like', '%'.$this->query.'%')->where('online_at', '<', $this->date)->get()->toArray();
+            $this->listings = Listing::where('title', 'like', '%'.$this->query.'%')->whereNull('offline_at')->where('online_at', '<', $this->date)->get()->toArray();
         } else
         {
-            $this->listings = Listing::where('title', 'like', '%'.$this->query.'%')->where('online_at', '<', $this->date)->where('category_id', $this->category)->get()->toArray();
+            $this->listings = Listing::where('title', 'like', '%'.$this->query.'%')->whereNull('offline_at')->where('online_at', '<', $this->date)->where('category_id', $this->category)->get()->toArray();
         }
     }
 

@@ -32,10 +32,6 @@
             @error('onlineAt') <span class="text-red-500">{{ $message }}</span> @enderror
         </div>
         <div class="mt-4">
-            <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-1/3 border border-slate-400 rounded-md py-2 pl-3 pr-3 shadow-sm focus:outline-none focus:border-mainblue focus:ring-mainblue focus:ring-1 sm:text-sm" placeholder="(Not Required) Enter date of sale (backdate) - YYYY-MM-DD" type="text" wire:model="offlineAt" />
-            @error('offlineAt') <span class="text-red-500">{{ $message }}</span> @enderror
-        </div>
-        <div class="mt-4">
             <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-1/3 border border-slate-400 rounded-md py-2 pl-3 pr-3 shadow-sm focus:outline-none focus:border-mainblue focus:ring-mainblue focus:ring-1 sm:text-sm" placeholder="Mobile" type="text" wire:model="mobile" />
             @error('mobile') <span class="text-red-500">{{ $message }}</span> @enderror
         </div>
