@@ -34,6 +34,7 @@ This is my project for the full stack candidate challenge.
 - I did minor styling on this project and focused more on functionality
 - This is my first time using the TALL stack (I switched to TALL stack half way through the project)
 - I only wrote tests at the end because I was figuring out how everything in the TALL stack fit together
+- There was minor AlpineJS work done. I only used it to count characters on text areas
 
 ### Future work
 - Better looking frontend (more styling to be done)
