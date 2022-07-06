@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
-use App\Models\Category;
 
 class CategorySeeder extends Seeder
 {
@@ -20,13 +19,13 @@ class CategorySeeder extends Seeder
             'Furniture',
             'Electronics',
             'Cars',
-            'Property'
+            'Property',
         ];
 
         $categories = Category::all()->toArray();
 
-        if(count($categories) === 0) {
-            foreach($knownCategories as $cat) {
+        if (count($categories) === 0) {
+            foreach ($knownCategories as $cat) {
                 $category = new Category();
                 $category->name = $cat;
                 $category->save();
@@ -36,8 +35,8 @@ class CategorySeeder extends Seeder
                 return $value['name'];
             });
 
-            foreach($mapped as $item) {
-                if(!in_array($item, $knownCategories)) {
+            foreach ($mapped as $item) {
+                if (! in_array($item, $knownCategories)) {
                     $category = new Category();
                     $category->name = $item;
                     $category->save();

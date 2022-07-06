@@ -2,24 +2,33 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-use App\Models\Listing;
 use App\Models\Category;
-use Illuminate\Support\{Str, Arr};
-use Carbon\Carbon;
+use App\Models\Listing;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Livewire\Component;
 
 class CreateListingSection extends Component
 {
-    public $title;
-    public $description;
-    public $descriptionCount;
+    public $title = '';
+
+    public $description = '';
+
+    public $descriptionCount = 800;
+
     public $categories;
-    public $categorySelected;
-    public $amount;
+
+    public $categorySelected = 0;
+
+    public $amount = '';
+
     public $onlineAt;
-    public $mobile;
-    public $email;
-    public $isCreated;
+
+    public $mobile = '';
+
+    public $email = '';
+
+    public $isCreated = false;
 
     protected $rules = [
         'title' => 'required|unique:listings|max:100',
@@ -33,26 +42,13 @@ class CreateListingSection extends Component
 
     public function mount()
     {
-        $this->title = '';
-        $this->description = '';
-        $this->amount = '';
-        $this->onlineAt = Carbon::now()->isoFormat('YYYY-MM-DD');
-        $this->email = '';
-        $this->mobile = '';
+        $this->onlineAt = now()->format('Y-m-d');
         $this->categories = Category::all()->toArray();
-        $this->categorySelected = 0;
-        $this->descriptionCount = 800;
-        $this->isCreated = false;
     }
 
     public function updatedCategorySelected()
     {
         $this->categorySelected = (int) $this->categorySelected;
-    }
-
-    public function updatedDescription()
-    {
-        $this->descriptionCount = 800 - strlen($this->description);
     }
 
     public function createListing()
@@ -63,7 +59,7 @@ class CreateListingSection extends Component
             'onlineAt.required' => 'Please enter a date for your listing to be published',
             'onlineAt.date' => 'Please enter a valid date (YYYY-MM-DD)',
         ]);
-        
+
         $selectedCategory = Arr::first($this->categories, function ($value, $key) {
             return $value['id'] = $this->categorySelected;
         });
@@ -77,11 +73,11 @@ class CreateListingSection extends Component
         $listing['slug'] = '\/listings\/'.$selectedCategory['name'].'\/'.$uuid;
         $listing['online_at'] = $this->onlineAt;
         $listing['amount'] = $this->amount;
-        $listing['currency'] = 'ZAR'; //just hardcoded this for now
+        $listing['currency'] = env('CURRENCY', 'ZAR'); //Change this per domain
         $listing['email'] = $this->email;
         $listing['mobile'] = $this->mobile;
         $listing['category_id'] = $selectedCategory['id'];
-        
+
         $listing->save();
 
         $this->isCreated = true;
@@ -94,14 +90,7 @@ class CreateListingSection extends Component
 
     public function closeModal()
     {
-        $this->title = '';
-        $this->description = '';
-        $this->amount = '';
-        $this->email = '';
-        $this->mobile = '';
-        $this->categorySelected = 0;
-        $this->descriptionCount = 800;
-        $this->isCreated = false;
+        $this->reset();
     }
 
     public function render()

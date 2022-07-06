@@ -2,13 +2,11 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
-use Livewire\Livewire;
+use App\Http\Livewire\ContactSection;
 use App\Models\Contact;
 use App\Models\Listing;
-use App\Http\Livewire\ContactSection;
+use Livewire\Livewire;
+use Tests\TestCase;
 
 class ContactTest extends TestCase
 {
@@ -20,21 +18,21 @@ class ContactTest extends TestCase
     public function testSaveContact()
     {
         $listing = Listing::factory()->create();
-        
-        Livewire::test(ContactSection::class)
+
+        Livewire::test(ContactSection::class, ['listingId' => $listing->id])
             ->set('email', 'test@test.com')
             ->set('mobile', '0822222222')
             ->set('message', 'new message')
             ->call('saveContact', $listing->id);
- 
+
         $this->assertTrue(Contact::where('email', 'test@test.com')->exists());
     }
 
     public function testSaveContactValidationRequired()
     {
         $listing = Listing::factory()->create();
-        
-        Livewire::test(ContactSection::class)
+
+        Livewire::test(ContactSection::class, ['listingId' => $listing->id])
             ->set('email', '')
             ->set('mobile', '')
             ->set('message', '')
@@ -47,8 +45,8 @@ class ContactTest extends TestCase
     public function testSaveContactValidationRules()
     {
         $listing = Listing::factory()->create();
-        
-        Livewire::test(ContactSection::class)
+
+        Livewire::test(ContactSection::class, ['listingId' => $listing->id])
             ->set('email', 'test')
             ->set('mobile', 'test')
             ->set('message', 'test')
@@ -56,7 +54,7 @@ class ContactTest extends TestCase
             ->assertHasErrors(['email' => 'email'])
             ->assertHasErrors(['mobile' => 'numeric']);
 
-        Livewire::test(ContactSection::class)
+        Livewire::test(ContactSection::class, ['listingId' => $listing->id])
             ->set('email', 'test@test.com')
             ->set('mobile', '0823')
             ->set('message', 'test')

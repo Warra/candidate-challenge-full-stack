@@ -11,7 +11,6 @@ module.exports = {
                 maingold: "#FDBA22",
             },
             screens: {
-                // xs: { max: "400px" },
                 xs: "400px",
             },
         },

@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
         <!-- Styles -->
-        @livewireStyles
+        <livewire:styles />
 
         @vite(['resources/js/app.js'])
         <!-- CSRF Token -->
@@ -27,6 +27,6 @@
     <body>
         @yield('body')
 
-        @livewireScripts
+        <livewire:scripts />
     </body>
 </html>

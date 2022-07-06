@@ -2,19 +2,23 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-use App\Models\Listing;
 use App\Models\Category;
+use App\Models\Listing;
 use Carbon\Carbon;
+use Livewire\Component;
 
 class ListingResults extends Component
 {
     protected $listeners = ['query-updated' => 'queryUpdated', 'category-selected' => 'categoryUpdated'];
 
     public $query;
+
     public $listings;
+
     public $category;
+
     public $selectedCategory;
+
     public $date;
 
     public function mount()
@@ -22,7 +26,7 @@ class ListingResults extends Component
         $this->date = Carbon::now();
         $this->query = '';
         $this->category = 0;
-        $this->listings = Listing::where('online_at', '<', $this->date)->whereNull('offline_at')->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
+        $this->listings = $this->getQuery()->limit(10)->get()->toArray();
         $this->selectedCategory = [];
     }
 
@@ -39,22 +43,27 @@ class ListingResults extends Component
         $this->search();
     }
 
+    public function getQuery()
+    {
+        return Listing::where('online_at', '<', $this->date)
+            ->whereNull('offline_at')
+            ->when($this->category > 0, function ($query) {
+                $query->where('category_id', $this->category);
+            })
+            ->when($this->query !== '', function ($query) {
+                $query->where('title', 'like', '%'.$this->query.'%');
+            })
+            ->orderBy('online_at', 'desc');
+    }
+
     public function search()
     {
-        sleep(1); //Added this to show loading state
-        if($this->query === "" && $this->category === 0)
-        {
-            $this->listings = Listing::where('online_at', '<', $this->date)->whereNull('offline_at')->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
-        } else if($this->query === "" && $this->category > 0)
-        {
-            $this->listings = Listing::where('category_id', $this->category)->whereNull('offline_at')->where('online_at', '<', $this->date)->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
-        } else if($this->query && $this->category === 0)
-        {
-            $this->listings = Listing::where('title', 'like', '%'.$this->query.'%')->whereNull('offline_at')->where('online_at', '<', $this->date)->get()->toArray();
-        } else
-        {
-            $this->listings = Listing::where('title', 'like', '%'.$this->query.'%')->whereNull('offline_at')->where('online_at', '<', $this->date)->where('category_id', $this->category)->get()->toArray();
-        }
+        usleep(0.5 * 1000000); //Added this to show loading state
+
+        $this->listings = $this->getQuery()
+            ->limit(10)
+            ->get()
+            ->toArray();
     }
 
     public function render()

@@ -2,13 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Category;
+use Livewire\Component;
 
 class ListingSearchBar extends Component
 {
     public $query;
+
     public $categories;
+
     public $categorySelected;
 
     public function mount()
