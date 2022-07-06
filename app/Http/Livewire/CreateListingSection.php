@@ -85,7 +85,6 @@ class CreateListingSection extends Component
         $listing['description'] = $this->description;
         $listing['slug'] = '\/listings\/'.$selectedCategory['name'].'\/'.$uuid;
         $listing['online_at'] = $this->onlineAt;
-        //mechanism for setting offline_at
         $listing['amount'] = $this->amount;
         $listing['currency'] = env('CURRENCY', 'ZAR'); //Change this per domain
         $listing['email'] = $this->email;
