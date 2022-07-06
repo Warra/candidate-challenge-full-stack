@@ -26,7 +26,7 @@ class CreateListingSection extends Component
         'description' => 'required|max:800',
         'categorySelected' => 'required|numeric|min:1',
         'amount' => 'required|numeric',
-        'onlineAt' => 'nullable|date',
+        'onlineAt' => 'required|date',
         'email' => 'required|email',
         'mobile' => 'required|numeric|digits:10',
     ];
@@ -59,7 +59,9 @@ class CreateListingSection extends Component
     {
         $this->validate($this->rules, [
             'categorySelected.min' => 'Please select a category for your listing.',
-            'mobile.required' => 'Please enter a mobile number for your listing.'
+            'mobile.required' => 'Please enter a mobile number for your listing.',
+            'onlineAt.required' => 'Please enter a date for your listing to be published',
+            'onlineAt.date' => 'Please enter a valid date (YYYY-MM-DD)',
         ]);
         
         $selectedCategory = Arr::first($this->categories, function ($value, $key) {
