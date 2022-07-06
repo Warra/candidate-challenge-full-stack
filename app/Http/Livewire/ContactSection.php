@@ -15,8 +15,6 @@ class ContactSection extends Component
 
     public $saved = false;
 
-    public $messageCount = 300;
-
     //remember not to reset this variable as it's passed in from the parent component
     public $listingId;
 
@@ -29,11 +27,6 @@ class ContactSection extends Component
     public function mount($listingId)
     {
         $this->listingId = $listingId;
-    }
-
-    public function updatedMessage()
-    {
-        $this->messageCount = 300 - strlen($this->message);
     }
 
     public function saveContact($listingId)

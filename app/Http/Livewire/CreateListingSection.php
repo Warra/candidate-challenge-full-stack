@@ -10,25 +10,25 @@ use Livewire\Component;
 
 class CreateListingSection extends Component
 {
-    public $title;
+    public $title = '';
 
-    public $description;
+    public $description = '';
 
-    public $descriptionCount;
+    public $descriptionCount = 800;
 
     public $categories;
 
-    public $categorySelected;
+    public $categorySelected = 0;
 
-    public $amount;
+    public $amount = '';
 
     public $onlineAt;
 
-    public $mobile;
+    public $mobile = '';
 
-    public $email;
+    public $email = '';
 
-    public $isCreated;
+    public $isCreated = false;
 
     protected $rules = [
         'title' => 'required|unique:listings|max:100',
@@ -42,26 +42,13 @@ class CreateListingSection extends Component
 
     public function mount()
     {
-        $this->title = '';
-        $this->description = '';
-        $this->amount = '';
         $this->onlineAt = now()->format('Y-m-d');
-        $this->email = '';
-        $this->mobile = '';
         $this->categories = Category::all()->toArray();
-        $this->categorySelected = 0;
-        $this->descriptionCount = 800;
-        $this->isCreated = false;
     }
 
     public function updatedCategorySelected()
     {
         $this->categorySelected = (int) $this->categorySelected;
-    }
-
-    public function updatedDescription()
-    {
-        $this->descriptionCount = 800 - strlen($this->description);
     }
 
     public function createListing()
@@ -103,14 +90,7 @@ class CreateListingSection extends Component
 
     public function closeModal()
     {
-        $this->title = '';
-        $this->description = '';
-        $this->amount = '';
-        $this->email = '';
-        $this->mobile = '';
-        $this->categorySelected = 0;
-        $this->descriptionCount = 800;
-        $this->isCreated = false;
+        $this->reset();
     }
 
     public function render()

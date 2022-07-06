@@ -8,11 +8,11 @@
             <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-full lg:w-1/3 border border-slate-400 rounded-md py-2 pl-3 pr-3 shadow-sm focus:outline-none focus:border-mainblue focus:ring-mainblue focus:ring-1 sm:text-sm" placeholder="Title for you listing" type="text" wire:model="title" />
             @error('title') <span class="text-red-500">{{ $message }}</span> @enderror
         </div>
-        <div class="mt-4">
+        <div x-data={count:0} class="mt-4">
             <span class="block text-base font-medium text-slate-700">Description</span>
-            <textarea class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-400 rounded-md py-2 pl-3 pr-3 shadow-sm focus:outline-none focus:border-mainblue focus:ring-mainblue focus:ring-1 sm:text-sm" placeholder="Description for your listing" type="text" rows="5" wire:model="description" maxlength="300"></textarea>
+            <textarea class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-400 rounded-md py-2 pl-3 pr-3 shadow-sm focus:outline-none focus:border-mainblue focus:ring-mainblue focus:ring-1 sm:text-sm" placeholder="Description for your listing" type="text" rows="5" wire:model="description" maxlength="800" x-ref="listingDescription" x-on:keyup="count = $refs.listingDescription.value.length"></textarea>
             @error('description') <span class="text-red-500">{{ $message }}</span> @enderror
-            <div class="text-sm text-grey-300 mt-2">{{$descriptionCount}} characters left</div>
+            <span class="text-sm text-grey-300 mt-2" x-html="800 - count"></span><span>&nbsp;characters left</span>
         </div>
         <div class="mt-4">
             <span class="block text-base font-medium text-slate-700">Category</span>
