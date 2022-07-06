@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Listing;
 use App\Models\Category;
 use App\Http\Livewire\CreateListingSection;
+use Carbon\Carbon;
 
 class CreateListingTest extends TestCase
 {
@@ -32,6 +33,7 @@ class CreateListingTest extends TestCase
             ->set('amount', '2000')
             ->set('categories', Category::all()->toArray())
             ->set('categorySelected', 1)
+            ->set('onlineAt', Carbon::now())
             ->set('email', 'test@test.com')
             ->set('mobile', '0822222222')
             ->call('createListing');

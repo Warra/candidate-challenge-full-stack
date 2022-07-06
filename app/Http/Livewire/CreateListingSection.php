@@ -16,6 +16,7 @@ class CreateListingSection extends Component
     public $categories;
     public $categorySelected;
     public $amount;
+    public $onlineAt;
     public $mobile;
     public $email;
     public $isCreated;
@@ -25,6 +26,7 @@ class CreateListingSection extends Component
         'description' => 'required|max:800',
         'categorySelected' => 'required|numeric|min:1',
         'amount' => 'required|numeric',
+        'onlineAt' => 'required|date',
         'email' => 'required|email',
         'mobile' => 'required|numeric|digits:10',
     ];
@@ -34,6 +36,7 @@ class CreateListingSection extends Component
         $this->title = '';
         $this->description = '';
         $this->amount = '';
+        $this->onlineAt = Carbon::now()->isoFormat('YYYY-MM-DD');
         $this->email = '';
         $this->mobile = '';
         $this->categories = Category::all()->toArray();
@@ -56,7 +59,9 @@ class CreateListingSection extends Component
     {
         $this->validate($this->rules, [
             'categorySelected.min' => 'Please select a category for your listing.',
-            'mobile.required' => 'Please enter a mobile number for your listing.'
+            'mobile.required' => 'Please enter a mobile number for your listing.',
+            'onlineAt.required' => 'Please enter a date for your listing to be published',
+            'onlineAt.date' => 'Please enter a valid date (YYYY-MM-DD)',
         ]);
         
         $selectedCategory = Arr::first($this->categories, function ($value, $key) {
@@ -70,8 +75,7 @@ class CreateListingSection extends Component
         $listing['title'] = $this->title;
         $listing['description'] = $this->description;
         $listing['slug'] = '\/listings\/'.$selectedCategory['name'].'\/'.$uuid;
-        $listing['online_at'] = null;
-        $listing['offline_at'] = Carbon::now()->toDateTimeString();
+        $listing['online_at'] = $this->onlineAt;
         $listing['amount'] = $this->amount;
         $listing['currency'] = 'ZAR'; //just hardcoded this for now
         $listing['email'] = $this->email;

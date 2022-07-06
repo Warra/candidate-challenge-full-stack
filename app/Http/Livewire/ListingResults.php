@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Listing;
 use App\Models\Category;
+use Carbon\Carbon;
 
 class ListingResults extends Component
 {
@@ -14,12 +15,14 @@ class ListingResults extends Component
     public $listings;
     public $category;
     public $selectedCategory;
+    public $date;
 
     public function mount()
     {
+        $this->date = Carbon::now();
         $this->query = '';
         $this->category = 0;
-        $this->listings = Listing::orderBy('online_at', 'desc')->limit(10)->get()->toArray();
+        $this->listings = Listing::where('online_at', '<', $this->date)->whereNull('offline_at')->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
         $this->selectedCategory = [];
     }
 
@@ -40,16 +43,16 @@ class ListingResults extends Component
     {
         if($this->query === "" && $this->category === 0)
         {
-            $this->listings = Listing::orderBy('online_at', 'desc')->limit(10)->get()->toArray();
+            $this->listings = Listing::where('online_at', '<', $this->date)->whereNull('offline_at')->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
         } else if($this->query === "" && $this->category > 0)
         {
-            $this->listings = Listing::where('category_id', $this->category)->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
+            $this->listings = Listing::where('category_id', $this->category)->whereNull('offline_at')->where('online_at', '<', $this->date)->orderBy('online_at', 'desc')->limit(10)->get()->toArray();
         } else if($this->query && $this->category === 0)
         {
-            $this->listings = Listing::where('title', 'like', '%'.$this->query.'%')->get()->toArray();
+            $this->listings = Listing::where('title', 'like', '%'.$this->query.'%')->whereNull('offline_at')->where('online_at', '<', $this->date)->get()->toArray();
         } else
         {
-            $this->listings = Listing::where('title', 'like', '%'.$this->query.'%')->where('category_id', $this->category)->get()->toArray();
+            $this->listings = Listing::where('title', 'like', '%'.$this->query.'%')->whereNull('offline_at')->where('online_at', '<', $this->date)->where('category_id', $this->category)->get()->toArray();
         }
     }
 
