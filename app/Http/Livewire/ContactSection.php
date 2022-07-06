@@ -2,17 +2,23 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Contact;
+use Livewire\Component;
 
 class ContactSection extends Component
 {
-    public $email;
-    public $mobile;
-    public $message;
+    public $email = '';
+
+    public $mobile = '';
+
+    public $message = '';
+
+    public $saved = false;
+
+    public $messageCount = 300;
+
+    //remember not to reset this variable as it's passed in from the parent component
     public $listingId;
-    public $saved;
-    public $messageCount;
 
     protected $rules = [
         'email' => 'required|email',
@@ -20,13 +26,9 @@ class ContactSection extends Component
         'message' => 'required|max:300',
     ];
 
-    public function mount()
+    public function mount($listingId)
     {
-        $this->email = '';
-        $this->mobile = '';
-        $this->message = '';
-        $this->saved = false;
-        $this->messageCount = 300;
+        $this->listingId = $listingId;
     }
 
     public function updatedMessage()
@@ -55,11 +57,7 @@ class ContactSection extends Component
 
     public function closeModal()
     {
-        $this->email = '';
-        $this->mobile = '';
-        $this->message = '';
-        $this->saved = false;
-        $this->messageCount = 300;
+        $this->resetExcept('listingId');
     }
 
     public function render()

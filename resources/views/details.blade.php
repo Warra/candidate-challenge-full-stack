@@ -1,7 +1,6 @@
 @extends("layouts.app")
 
 @section("content")
-    <x-header />
     <div class="flex flex-col md:flex-row justify-center items-center md:items-start my-10 w-screen min-h-screen py-12 bg-gray-50 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row justify-center items-center md:items-start w-full md:w-3/4">
             <div class="flex flex-col w-full md:w-4/6 h-fit p-8 md:mr-8 border-solid border-2 border-gray-300">
@@ -13,7 +12,7 @@
                 <div class="text-gray-500 mt-8">{{$listing["description"]}}</div>
             </div>
             <div class="flex flex-col mt-8 md:mt-0 w-full md:w-1/3 h-fit">
-                @livewire("contact-section", ["listingId" => $listing["id"]])
+                <livewire:contact-section :listingId="$listing['id']" />
                 @auth
                     <div class="border-solid border-2 border-gray-300 mt-8">
                         <div class="bg-mainblue text-maingold text-center p-2">

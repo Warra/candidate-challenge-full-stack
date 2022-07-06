@@ -2,23 +2,32 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-use App\Models\Listing;
 use App\Models\Category;
-use Illuminate\Support\{Str, Arr};
-use Carbon\Carbon;
+use App\Models\Listing;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Livewire\Component;
 
 class CreateListingSection extends Component
 {
     public $title;
+
     public $description;
+
     public $descriptionCount;
+
     public $categories;
+
     public $categorySelected;
+
     public $amount;
+
     public $onlineAt;
+
     public $mobile;
+
     public $email;
+
     public $isCreated;
 
     protected $rules = [
@@ -36,7 +45,7 @@ class CreateListingSection extends Component
         $this->title = '';
         $this->description = '';
         $this->amount = '';
-        $this->onlineAt = Carbon::now()->isoFormat('YYYY-MM-DD');
+        $this->onlineAt = now()->format('Y-m-d');
         $this->email = '';
         $this->mobile = '';
         $this->categories = Category::all()->toArray();
@@ -63,7 +72,7 @@ class CreateListingSection extends Component
             'onlineAt.required' => 'Please enter a date for your listing to be published',
             'onlineAt.date' => 'Please enter a valid date (YYYY-MM-DD)',
         ]);
-        
+
         $selectedCategory = Arr::first($this->categories, function ($value, $key) {
             return $value['id'] = $this->categorySelected;
         });
@@ -76,12 +85,13 @@ class CreateListingSection extends Component
         $listing['description'] = $this->description;
         $listing['slug'] = '\/listings\/'.$selectedCategory['name'].'\/'.$uuid;
         $listing['online_at'] = $this->onlineAt;
+        //mechanism for setting offline_at
         $listing['amount'] = $this->amount;
-        $listing['currency'] = 'ZAR'; //just hardcoded this for now
+        $listing['currency'] = env('CURRENCY', 'ZAR'); //Change this per domain
         $listing['email'] = $this->email;
         $listing['mobile'] = $this->mobile;
         $listing['category_id'] = $selectedCategory['id'];
-        
+
         $listing->save();
 
         $this->isCreated = true;

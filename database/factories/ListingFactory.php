@@ -3,8 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Listing;
-use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 /**
@@ -41,7 +39,7 @@ class ListingFactory extends Factory
             'Oslo Black Pedestal',
             'Jordan Artic Oak Dresser',
             'Intec Desk 120x60',
-            'Bastion 1.4m desk'
+            'Bastion 1.4m desk',
         ];
 
         $electronics = [
@@ -64,7 +62,7 @@ class ListingFactory extends Factory
             'Rdio surround sound speakers',
             'Sony headphones',
             'Nvidia RTX 3080',
-            'Gaming mouse'
+            'Gaming mouse',
         ];
 
         $property = [
@@ -87,13 +85,10 @@ class ListingFactory extends Factory
             'Town house in security complex in Muizenburg',
             '315sqm plot in Yzerfontein',
             'Penthouse Flat in Greenpoint',
-            'Gardener\'s Cottage in Tokai'
+            'Gardener\'s Cottage in Tokai',
         ];
 
-        $listingTitle;
-        $listingType;
-
-        $randomNumber = rand(1,4);
+        $randomNumber = rand(1, 4);
         $randomNumberTitle = rand(0, 19);
 
         switch ($randomNumber) {
@@ -111,14 +106,13 @@ class ListingFactory extends Factory
                 break;
         }
 
-
         return [
             'uuid' => $uuid,
             'title' => $listingTitle,
             'description' => $this->faker->paragraph,
             'slug' => '/listings/cars/'.$uuid,
-            'online_at' => Carbon::now()->toDateTimeString(),
-            'offline_at' => Carbon::now()->toDateTimeString(),
+            'online_at' => now(),
+            'offline_at' => now(),
             'amount' => $this->faker->randomNumber(4, 8),
             'currency' => 'ZAR',
             'mobile' => $this->faker->mobileNumber,
