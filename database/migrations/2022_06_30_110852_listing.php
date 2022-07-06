@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('slug');
             $table->text('description');
             $table->dateTimeTz('online_at')->nullable();
-            $table->dateTimeTz('offline_at');
+            $table->dateTimeTz('offline_at')->nullable();
             $table->decimal('amount', $precision = 10, $scale = 2);
             $table->string('currency', 3);
             $table->string('mobile')->nullable();
