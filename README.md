@@ -31,6 +31,7 @@ This is my project for the full stack candidate challenge.
 ### Testing
 - `php artisan test`
 - The following tests are included - Route tests, Create contact tests, Create listing tests
+- **Remember to run php artisan migrate:fresh --seed after running the tests**
 
 ### Technical features
 - Uses TALL stack
